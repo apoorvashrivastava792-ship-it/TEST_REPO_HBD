@@ -20,5 +20,5 @@ jobs:
           GMAIL_USER: ${{ secrets.GMAIL_USER }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
           TO_EMAIL: apoorvashrivastava792@gmail.com
-          WEBSITE_URL: https://apoorva-bday.pages.dev
+          WEBSITE_URL: https://apoorvashrivastava792-ship-it.github.io/TEST_REPO_HBD/
         run: node send-email.js
