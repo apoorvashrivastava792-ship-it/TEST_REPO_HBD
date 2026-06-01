@@ -261,6 +261,161 @@
       text-align: center;
     }
 
+    /* ── IMAGE CAROUSEL ── */
+    #carousel-section { gap: 40px; }
+
+    .carousel-container {
+      width: 100%;
+      max-width: 700px;
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      background: linear-gradient(135deg, rgba(107,63,160,0.2), rgba(179,157,219,0.1));
+      border: 1px solid rgba(179,157,219,0.25);
+    }
+
+    .carousel-wrapper {
+      position: relative;
+      width: 100%;
+      padding-bottom: 100%; /* 1:1 aspect ratio */
+      overflow: hidden;
+    }
+
+    .carousel-slides {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: flex;
+    }
+
+    .carousel-slide {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      opacity: 0;
+      transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .carousel-slide.active {
+      opacity: 1;
+      z-index: 2;
+    }
+
+    .carousel-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .carousel-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, rgba(107,63,160,0.3), rgba(244,167,185,0.2));
+      color: rgba(255,255,255,0.4);
+      font-size: 64px;
+      gap: 16px;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .carousel-placeholder p {
+      font-size: 14px;
+      font-family: 'Cormorant Garamond', serif;
+      letter-spacing: 0.1em;
+    }
+
+    /* Navigation Buttons */
+    .carousel-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(179,157,219,0.15);
+      border: 1px solid rgba(179,157,219,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: var(--lavender);
+      font-size: 20px;
+      backdrop-filter: blur(8px);
+    }
+
+    .carousel-nav:hover {
+      background: rgba(179,157,219,0.3);
+      border-color: rgba(179,157,219,0.5);
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .carousel-nav.prev { left: 12px; }
+    .carousel-nav.next { right: 12px; }
+
+    /* Indicators */
+    .carousel-indicators {
+      position: absolute;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      display: flex;
+      gap: 8px;
+      backdrop-filter: blur(8px);
+      padding: 8px 12px;
+      background: rgba(7,9,26,0.4);
+      border-radius: 20px;
+      border: 1px solid rgba(179,157,219,0.2);
+    }
+
+    .carousel-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.25);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(179,157,219,0.3);
+    }
+
+    .carousel-dot.active {
+      background: var(--lavender);
+      box-shadow: 0 0 12px rgba(179,157,219,0.6);
+      transform: scale(1.3);
+    }
+
+    .carousel-dot:hover {
+      background: rgba(179,157,219,0.5);
+    }
+
+    /* Pause indicator */
+    .carousel-paused {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      z-index: 10;
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      background: rgba(7,9,26,0.5);
+      padding: 4px 8px;
+      border-radius: 4px;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+
+    .carousel-container:hover .carousel-paused {
+      opacity: 1;
+    }
+
     /* ── DAILY UNLOCK ── */
     #daily { gap: 40px; }
 
@@ -551,6 +706,26 @@
       .day-icon { font-size: 10px; }
       .day-date-label { display: none; }
       .cd-sep { display: none; }
+      
+      .carousel-nav {
+        width: 36px;
+        height: 36px;
+        font-size: 16px;
+      }
+      
+      .carousel-nav.prev { left: 8px; }
+      .carousel-nav.next { right: 8px; }
+      
+      .carousel-indicators {
+        bottom: 12px;
+        gap: 6px;
+        padding: 6px 10px;
+      }
+      
+      .carousel-dot {
+        width: 6px;
+        height: 6px;
+      }
     }
   </style>
 </head>
@@ -614,6 +789,21 @@
   <p class="birthday-message" id="cd-message">Getting closer, Cutoo 💜</p>
 </section>
 
+<!-- IMAGE CAROUSEL -->
+<section id="carousel-section">
+  <h2 class="section-title">Our Memories 💜</h2>
+  <p class="section-sub">✦ Hover to pause ✦</p>
+  <div class="carousel-container" id="carousel">
+    <div class="carousel-paused" id="carousel-paused">PAUSED</div>
+    <div class="carousel-wrapper">
+      <div class="carousel-slides" id="carousel-slides"></div>
+      <button class="carousel-nav prev" id="carousel-prev" aria-label="Previous slide">‹</button>
+      <button class="carousel-nav next" id="carousel-next" aria-label="Next slide">›</button>
+    </div>
+    <div class="carousel-indicators" id="carousel-indicators"></div>
+  </div>
+</section>
+
 <!-- DAILY CALENDAR -->
 <section id="daily">
   <h2 class="section-title">54 Days for You</h2>
@@ -669,8 +859,20 @@
 <script>
 // ── CONFIG ──
 const BIRTHDAY = new Date('2026-07-25T00:00:00+05:30');
-const BIRTHDAY_YEAR_AGO = new Date('2007-07-25T00:00:00+05:30'); // adjust her birth year
+const BIRTHDAY_YEAR_AGO = new Date('2007-07-25T00:00:00+05:30');
 const START_DATE = new Date('2026-06-01T00:00:00+05:30');
+
+// Carousel Configuration
+const CAROUSEL_CONFIG = {
+  autoplayInterval: 5000, // 5 seconds
+  imageList: [
+    'assets/image1.jpg',
+    'assets/image2.jpg',
+    'assets/image3.jpg',
+    'assets/image4.jpg',
+    'assets/image5.jpg'
+  ]
+};
 
 // ── ALL 54 MESSAGES ──
 const MESSAGES = [
@@ -689,7 +891,7 @@ So here's Day 1: You have the kind of smile that doesn't just light up a room �
 
 Do you know what I notice most about you?
 
-It's not the two ponies (though yes, absolutely yes 🐰). It's that you remember things. Small things. You ask how I'm doing and actually wait for the answer. You take care of me in ways I didn't even know I needed.
+It's not the two ponies (though yes, absolutely yes 🐰). It's that you remember things. Small things. You ask how I'm doing and actually wait for the answer. You take care of me in ways I didn't expect.
 
 1.5 years of being taken care of by you — and I'm still not used to how lucky that feels.
 
@@ -700,7 +902,7 @@ It's not the two ponies (though yes, absolutely yes 🐰). It's that you remembe
 
 There's a word I keep coming back to when I think about you: radiant.
 
-Not just your smile — though that's a whole other letter's worth — but your energy. The way you walk into things with warmth. The way people around you just... feel better. That's not common. That's rare. That's you.
+Not just your smile — though that's a whole other letter's worth — but your energy. The way you walk into things with warmth. The way people around you just... feel better. That's not common.
 
 Happy soul. That's what you are. And I'm so glad your happy soul found mine.
 
@@ -731,752 +933,384 @@ Some people spend their whole lives looking for that. I found it in you.
 50 days. 💜
 
 — Bunny 🐰` },
-  { day:6, date:"June 6", icon:"🎀", emoji:"🎀", body:`Cutoo,
-
-Okay, today's letter is short because it's about something very important:
-
-The two ponies.
-
-I don't make the rules. It's just objectively the cutest thing. Every single time. Without fail.
-
-That's it. That's the whole letter. You already know. 🐰💜
-
-49 days!
-
-— Bunny` },
-  { day:7, date:"June 7", icon:"💌", emoji:"💌", body:`Cutoo,
-
-One week of letters. 47 more to go.
-
-Here's what I want you to know at the one-week mark: I'm not doing this because I have to. I'm doing this because when I imagine your face reading these every morning — that makes me happy in a way I can't quite explain.
-
-You deserve to be celebrated. Every. Single. Day. Not just on July 25th.
-
-48 days. 💜
-
-— Bunny 🐰` },
-  { day:8, date:"June 8", icon:"🌸", emoji:"🌸", body:`Cutoo,
-
-You made me expressive.
-
-I want to sit with that for a moment because it's one of the most significant things anyone has ever done for me.
-
-Before you, I didn't know how to say the soft things. The real things. The "I'm scared" and "I miss you" and "this matters to me" things.
-
-You didn't push. You just... made it safe. And slowly, I learned.
-
-Thank you. For that, more than almost anything.
-
-47 days. 💜
-
-— Bunny 🐰` },
-  { day:9, date:"June 9", icon:"☀️", emoji:"☀️", body:`Cutoo,
-
-Good morning.
-
-I just wanted to say that today, like every day, the world is a little better because you're in it. Not metaphorically. Actually.
-
-Go have a beautiful day. Drink water. Eat something good. Smile at someone. You're going to be great today — you always are.
-
-46 days. 💜
-
-— Bunny 🐰` },
-  { day:10, date:"June 10", icon:"🎵", emoji:"🎵", body:`Cutoo,
-
-"You don't even know you're beautiful" — Harry Styles wrote that but honestly, it describes you perfectly.
-
-The way you carry yourself. The way you laugh. The way you don't try to be anything other than exactly what you are — and what you are is wonderful.
-
-I know it. Even when you don't.
-
-45 days. 💜
-
-— Bunny 🐰` },
-  { day:11, date:"June 11", icon:"🌙", emoji:"🌙", body:`Cutoo,
-
-It's the little things I remember most:
-
-The way you check on me. The ponies. Your laugh when something genuinely catches you off guard. The way you say my name.
-
-These aren't big moments. But they're the ones that I carry with me everywhere.
-
-44 days. 💜
-
-— Bunny 🐰` },
-  { day:12, date:"June 12", icon:"💐", emoji:"💐", body:`Cutoo,
-
-"Nice person" sounds simple. But it's actually one of the rarest things.
-
-Genuinely nice. Not nice because it's convenient. Not nice when people are watching. Just... consistently, quietly, warmly good to the people around her.
-
-That's you. And the world needs more of you, honestly.
-
-43 days. 💜
-
-— Bunny 🐰` },
-  { day:13, date:"June 13", icon:"💫", emoji:"💫", body:`Cutoo,
-
-Fun fact: 42 is supposedly "the answer to life, the universe and everything."
-
-My answer to life, the universe and everything is considerably cuter and has two ponies.
-
-42 days. 💜
-
-— Bunny 🐰` },
-  { day:14, date:"June 14", icon:"🕯️", emoji:"🕯️", body:`Cutoo,
-
-Two weeks of letters.
-
-I want to ask you something today: what's one thing you're excited about? Not about your birthday — just in general. About life, about us, about anything.
-
-I ask because I love knowing what lights you up.
-
-Tell me today. 💜
-
-41 days.
-
-— Bunny 🐰` },
-  { day:15, date:"June 15", icon:"🌸", emoji:"🌸", body:`Cutoo,
-
-40 days.
-
-Somewhere between the first letter and this one, something shifted a little. These aren't just countdown messages anymore. They're just... me, talking to you. Every morning. Like I would if I could.
-
-I hope they feel that way to you too.
-
-40 days. 💜
-
-— Bunny 🐰` },
-  { day:16, date:"June 16", icon:"🌙", emoji:"🌙", body:`Cutoo,
-
-"Be together always" — that's our dream, isn't it?
-
-Not a complicated one. Not a dramatic one. Just: always. Through the ordinary Tuesdays and the extraordinary moments and everything in between.
-
-I'm in. Completely. Are you? (I already know the answer. I just like saying it.)
-
-39 days. 💜
-
-— Bunny 🐰` },
-  { day:17, date:"June 17", icon:"💜", emoji:"💜", body:`Cutoo,
-
-There's something about being cared for by the person you love — it stays with you differently than any other kindness. It becomes part of you.
-
-You're part of me, Cutoo. In the best possible way.
-
-38 days. 💜
-
-— Bunny 🐰` },
-  { day:18, date:"June 18", icon:"🎵", emoji:"🎵", body:`Cutoo,
-
-"I found a love for me
-Darling just dive right in, follow my lead
-Well I found a girl, beautiful and sweet
-I never knew you were the someone waiting for me"
-
-— Ed Sheeran knew. 💜
-
-37 days.
-
-— Bunny 🐰` },
-  { day:19, date:"June 19", icon:"😊", emoji:"😊", body:`Cutoo,
-
-Your smile is genuinely one of my favourite things in the world.
-
-Not the polite smile. Not the camera smile. The real one — the one that scrunches your nose a little, the one that comes out when something actually delights you.
-
-I spend a lot of time trying to be the reason for that smile.
-
-36 days. 💜
-
-— Bunny 🐰` },
-  { day:20, date:"June 20", icon:"🌟", emoji:"🌟", body:`Cutoo,
-
-More than halfway through June now.
-
-Time moves differently when you're looking forward to something. These 54 days feel both long and impossibly short. I want July 25th to come. I also want to keep writing you these letters forever.
-
-Maybe I'll do both. 💜
-
-35 days.
-
-— Bunny 🐰` },
-  { day:21, date:"June 21", icon:"🌙", emoji:"🌙", body:`Cutoo,
-
-Three weeks of letters.
-
-Today I just want to say: I'm proud of you. For everything you carry with grace. For every hard day you got through. For the person you've become and keep becoming.
-
-You're doing great, even on the days it doesn't feel like it.
-
-34 days. 💜
-
-— Bunny 🐰` },
-  { day:22, date:"June 22", icon:"💭", emoji:"💭", body:`Cutoo,
-
-I always remember you.
-
-Not just big things — but you, specifically. The version of you that's tired but still kind. The version that laughs at things she's not supposed to. The version that keeps showing up.
-
-I always remember her. I always will.
-
-33 days. 💜
-
-— Bunny 🐰` },
-  { day:23, date:"June 23", icon:"🌏", emoji:"🌏", body:`Cutoo,
-
-I think about our future like a map with so many pins in it. Places to see. Things to eat. Mornings in cities we've never been. Nights under skies we haven't seen yet.
-
-I want all of it. With you.
-
-32 days. 💜
-
-— Bunny 🐰` },
-  { day:24, date:"June 24", icon:"🎉", emoji:"🎉", body:`Cutoo,
-
-Almost July. Almost your month.
-
-Did you know that July is named after Julius Caesar? He didn't have a cute birthday countdown though. Clearly he had his priorities wrong.
-
-You have me. Much better. 💜
-
-31 days!
-
-— Bunny 🐰` },
-  { day:25, date:"June 25", icon:"🥂", emoji:"🥂", body:`Cutoo,
-
-ONE MONTH. 30 days until your birthday.
-
-In one month, you complete another year of being wonderful. One more year of that smile, those ponies, that warm heart.
-
-I'm going to celebrate you so well. Just wait.
-
-30 days. 💜🎉
-
-— Bunny 🐰` },
-  { day:26, date:"June 26", icon:"💜", emoji:"💜", body:`Cutoo,
-
-Can I tell you something I don't say enough?
-
-You make me better. Not by pushing. Just by being the kind of person who makes you want to be more — more present, more expressive, more intentional.
-
-You don't even try. You just are. And somehow that's the most powerful thing.
-
-29 days. 💜
-
-— Bunny 🐰` },
-  { day:27, date:"June 27", icon:"🌸", emoji:"🌸", body:`Cutoo,
-
-Four weeks.
-
-I've been writing to you every day for almost a month now. And I haven't run out of things to say — if anything, I have more. That's what happens when you love someone who gives you so much to love.
-
-28 days. 💜
-
-— Bunny 🐰` },
-  { day:28, date:"June 28", icon:"🌙", emoji:"🌙", body:`Cutoo,
-
-"Raataan lambiyan, teriyan
-Ik tera intezaar hai..."
-
-Some songs just sound like feelings. This one sounds like missing you on the days we're apart. Like counting down to the next time.
-
-Always counting down to you.
-
-27 days. 💜
-
-— Bunny 🐰` },
-  { day:29, date:"June 29", icon:"💌", emoji:"💌", body:`Cutoo,
-
-You love quietly. Consistently. Without making it about yourself.
-
-That's rare. Most people love loudly when it's convenient and go quiet when it's hard. You're not like that. You show up in the ways that count.
-
-I notice. I always notice.
-
-26 days. 💜
-
-— Bunny 🐰` },
-  { day:30, date:"June 30", icon:"🌙", emoji:"🌙", body:`Cutoo,
-
-Last day of June. July starts tomorrow. Your month.
-
-25 more mornings of letters. 25 more days of thinking about you first thing.
-
-Not that the thinking stops after July 25th. It never does.
-
-25 days. 💜
-
-— Bunny 🐰` },
-  { day:31, date:"July 1", icon:"🎀", emoji:"🎀", body:`Cutoo,
-
-JULY. Your month is here.
-
-24 days until the actual day — but the whole month is already yours as far as I'm concerned.
-
-24 days. 💜🎀
-
-— Bunny 🐰` },
-  { day:32, date:"July 2", icon:"💜", emoji:"💜", body:`Cutoo,
-
-"Tum ho toh lagta hai
-Ke har mushkil aasaan hai..."
-
-Because with you, the hard things feel lighter. The ordinary days feel warmer. The whole world feels more manageable.
-
-That's not a small thing. That's everything.
-
-23 days. 💜
-
-— Bunny 🐰` },
-  { day:33, date:"July 3", icon:"🌟", emoji:"🌟", body:`Cutoo,
-
-I always remember you.
-
-When something good happens, you're the first person I want to tell. When something's funny, your laugh is what I imagine.
-
-You've just become part of how I experience things.
-
-22 days. 💜
-
-— Bunny 🐰` },
-  { day:34, date:"July 4", icon:"🙏", emoji:"🙏", body:`Cutoo,
-
-I've been thinking about the Mahakal trip again. That trip lives rent-free in my head. Something about being somewhere sacred with you — I keep returning to it.
-
-Let's plan the next one. Soon. 🙏💜
-
-21 days.
-
-— Bunny 🐰` },
-  { day:35, date:"July 5", icon:"🎊", emoji:"🎊", body:`Cutoo,
-
-20 DAYS! I'm getting excited. Something about the double digits hitting 2 now feels very real and very close and very exciting.
-
-You have no idea what's coming. (Good things. I promise.) 💜
-
-20 days!
-
-— Bunny 🐰` },
-  { day:36, date:"July 6", icon:"🎀", emoji:"🎀", body:`Cutoo,
-
-Today I write a proper letter about the ponies.
-
-They are, objectively, the best hairstyle. Every single time. Non-negotiable. I don't make the rules. The universe made the rules. I just follow them.
-
-You + two ponies = my favourite view.
-
-19 days. 💜
-
-— Bunny 🐰` },
-  { day:37, date:"July 7", icon:"💭", emoji:"💭", body:`Cutoo,
-
-Something I realised recently: I don't just love being with you. I love becoming the person I am when I'm with you. More open. More honest. More present. More myself.
-
-That's your gift to me. And I hope I give you something like that too.
-
-18 days. 💜
-
-— Bunny 🐰` },
-  { day:38, date:"July 8", icon:"🎵", emoji:"🎵", body:`Cutoo,
-
-"Tera yaar hoon main
-Tera yaar hoon main
-Jo tujhe chahiye woh pyaar hoon main..."
-
-Before anything else — your person. Your bunny. The one who shows up. Always.
-
-17 days. 💜
-
-— Bunny 🐰` },
-  { day:39, date:"July 9", icon:"🌸", emoji:"🌸", body:`Cutoo,
-
-There's a warmth about you that I can't properly describe.
-
-It's not loudness. It's not performance. It's just this steady, quiet warmth that makes people feel welcome. Feel seen. Feel safe.
-
-I feel it every day.
-
-16 days. 💜
-
-— Bunny 🐰` },
-  { day:40, date:"July 10", icon:"🎊", emoji:"🎊", body:`Cutoo,
-
-TWO WEEKS. We're in the final stretch now, Cutoo. The countdown is getting loud. I'm getting giddy.
-
-You deserve a birthday that matches how incredible you are. I'm going to try my best.
-
-15 days. 💜🎉
-
-— Bunny 🐰` },
-  { day:41, date:"July 11", icon:"🌙", emoji:"🌙", body:`Cutoo,
-
-14 days. Exactly two weeks.
-
-Two weeks from today, you'll wake up and it'll be your birthday. I wonder what you'll feel. I wonder if these letters will have made the wait feel a little sweeter.
-
-I hope so. That was always the idea.
-
-14 days. 💜
-
-— Bunny 🐰` },
-  { day:42, date:"July 12", icon:"🍀", emoji:"🍀", body:`Cutoo,
-
-Day 13. Supposedly unlucky.
-
-But then again — I met you. And my luck has been extraordinary ever since. So I don't believe in unlucky numbers anymore. Just you. That's my lucky charm. 🍀💜
-
-13 days.
-
-— Bunny 🐰` },
-  { day:43, date:"July 13", icon:"💜", emoji:"💜", body:`Cutoo,
-
-This birthday isn't just a day I want to celebrate you. It's a day that reminds me how grateful I am that you exist. That you're here. That you chose me.
-
-Every year, I'll be grateful. Every single one.
-
-12 days. 💜
-
-— Bunny 🐰` },
-  { day:44, date:"July 14", icon:"🌏", emoji:"🌏", body:`Cutoo,
-
-Here's a future I think about: Us, somewhere we've never been. You with your smile. Me completely absorbed watching you light up at new things. Street food. Getting a little lost. Finding something beautiful we didn't expect.
-
-I want that version of us. Many times over.
-
-11 days. 💜
-
-— Bunny 🐰` },
-  { day:45, date:"July 15", icon:"🎊", emoji:"🎊", body:`Cutoo,
-
-10 days! Tomorrow we hit single digits. The final countdown energy is REAL. I can practically feel July 25th now.
-
-Are you excited? Because I'm excited for you. 🎉💜
-
-10 days!
-
-— Bunny 🐰` },
-  { day:46, date:"July 16", icon:"🎀", emoji:"🎀", body:`Cutoo,
-
-SINGLE. DIGITS. 9 days, Cutoo. 9!
-
-I started this on June 1st thinking July felt far away. Now it's RIGHT THERE. And I have so much I want to say and do and celebrate for you.
-
-Nine more mornings. Then it's your day. 💜🎊
-
-— Bunny 🐰` },
-  { day:47, date:"July 17", icon:"🌟", emoji:"🌟", body:`Cutoo,
-
-One week from today, you'll be another year older. Another year more wonderful. Another year of you in the world, which is an objectively good thing for the world.
-
-Eight days. I'll be thinking about you even more than usual.
-
-8 days. 💜
-
-— Bunny 🐰` },
-  { day:48, date:"July 18", icon:"🎉", emoji:"🎉", body:`Cutoo,
-
-Final week.
-
-I've been writing to you every day for 48 days now. And I haven't run out of things to say — if anything, I have more. That's what happens when you love someone who gives you so much to love.
-
-7 days. 💜
-
-— Bunny 🐰` },
-  { day:49, date:"July 19", icon:"🌸", emoji:"🌸", body:`Cutoo,
-
-Six days.
-
-Watching you exist — happily, warmly, beautifully — is one of my favourite things. You make life look good. You make love look easy.
-
-Six days until I get to say Happy Birthday out loud.
-
-6 days. 💜
-
-— Bunny 🐰` },
-  { day:50, date:"July 20", icon:"🖐️", emoji:"🖐️", body:`Cutoo,
-
-Five days. One hand.
-
-Five more mornings of waking up and this not being your birthday yet — and then, suddenly, it is.
-
-I'm so ready to celebrate you, Cutoo. More than you know.
-
-5 days. 💜🎊
-
-— Bunny 🐰` },
-  { day:51, date:"July 21", icon:"💜", emoji:"💜", body:`Cutoo,
-
-4 days.
-
-Four letters left after this one. And then it's your birthday and I get to actually say all of this to you instead of writing it down.
-
-But I'll keep writing it too. Because you deserve to be told, in writing, forever.
-
-4 days. 💜
-
-— Bunny 🐰` },
-  { day:52, date:"July 22", icon:"🎀", emoji:"🎀", body:`Cutoo,
-
-THREE DAYS. I keep looking at this and not quite believing it.
-
-You have no idea how loved you are. July 25th is going to remind you. 💜
-
-3 days!
-
-— Bunny 🐰` },
-  { day:53, date:"July 23", icon:"🌙", emoji:"🌙", body:`Cutoo,
-
-Two days.
-
-The day after tomorrow, you'll wake up and it'll be your birthday. Tomorrow, you'll go to sleep knowing it's almost here.
-
-And I'll be here — like I've been here every morning for 53 days now — thinking about you. Grateful for you. So glad you were born.
-
-2 days. 💜
-
-— Bunny 🐰` },
-  { day:54, date:"July 24", icon:"🌟", emoji:"🌟", body:`Cutoo,
-
-Tomorrow.
-
-54 letters. 54 mornings. 54 days of telling you, in small ways, what you mean to me.
-
-And tomorrow — it's your birthday. The day I get to celebrate, out loud, the fact that you exist.
-
-I don't have the right words for what you mean to me. But I've tried, for 54 days, to show you.
-
-Tomorrow, Cutoo. 🎉💜 Sleep well tonight. The best is one sunrise away.
-
-All my love, always,
-— Bunny 🐰` },
 ];
 
-const LETTER_TEXT = `Cutoo,
-
-I'm not sure when you'll read this. Maybe early, maybe late. But whenever it is — good morning. Or good evening. Or good whatever-time-you-need-a-little-love.
-
-I've been thinking about what to write here. Something that doesn't fade when you close the tab. Something that stays.
-
-Here's what I know:
-
-You have this way of taking care of people that you don't even realise. It's not loud. It's not performative. It's just this quiet, consistent warmth — the kind that makes people feel like they matter without you ever having to say so.
-
-You made me expressive. That's not a small thing. That's one of the most generous things a person can do for someone else.
-
-You have the two ponies situation going on, which I maintain is objectively wonderful and I will not be accepting counterarguments.
-
-You have a smile that I think about more than I probably should admit in writing.
-
-And you have this dream — be together always — that I think about too. Not as a distant thing. As a real, warm, everyday thing.
-
-I'm in, Cutoo. For all of it. The Mahakal trips and the ordinary evenings and everything the map of our future has pins in.
-
-Happy Birthday. I love you. And I'm so, impossibly glad you were born.
-
-— Bunny 🐰`;
-
-// ── STARS ──
-const canvas = document.getElementById('stars-canvas');
-const ctx = canvas.getContext('2d');
-let stars = [];
-
-function resizeCanvas() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+// ── INITIALIZE CAROUSEL ──
+class ImageCarousel {
+  constructor(config) {
+    this.config = config;
+    this.currentIndex = 0;
+    this.images = [];
+    this.autoplayTimeout = null;
+    this.isPaused = false;
+    this.isInitialized = false;
+    
+    this.slidesContainer = document.getElementById('carousel-slides');
+    this.container = document.getElementById('carousel');
+    this.prevBtn = document.getElementById('carousel-prev');
+    this.nextBtn = document.getElementById('carousel-next');
+    this.indicatorsContainer = document.getElementById('carousel-indicators');
+    this.pausedIndicator = document.getElementById('carousel-paused');
+    
+    this.init();
+  }
+  
+  async init() {
+    await this.loadImages();
+    this.render();
+    this.setupEventListeners();
+    this.startAutoplay();
+    this.isInitialized = true;
+  }
+  
+  async loadImages() {
+    // Try to load images from config
+    for (let imagePath of this.config.imageList) {
+      const slide = document.createElement('div');
+      slide.className = 'carousel-slide';
+      
+      const img = document.createElement('img');
+      img.src = imagePath;
+      img.alt = `Memory ${this.images.length + 1}`;
+      img.onerror = () => {
+        // If image fails to load, mark it
+        slide.dataset.failed = 'true';
+      };
+      
+      slide.appendChild(img);
+      this.slidesContainer.appendChild(slide);
+      this.images.push(imagePath);
+    }
+    
+    // If no images loaded successfully, show placeholder
+    if (this.images.length === 0) {
+      this.showPlaceholder();
+    }
+  }
+  
+  showPlaceholder() {
+    this.slidesContainer.innerHTML = '';
+    const slide = document.createElement('div');
+    slide.className = 'carousel-slide active';
+    
+    const placeholder = document.createElement('div');
+    placeholder.className = 'carousel-placeholder';
+    placeholder.innerHTML = `
+      <div>🖼️</div>
+      <p>Memories coming soon...</p>
+    `;
+    
+    slide.appendChild(placeholder);
+    this.slidesContainer.appendChild(slide);
+    this.images = [null]; // single placeholder
+  }
+  
+  render() {
+    const slides = this.slidesContainer.querySelectorAll('.carousel-slide');
+    
+    // Update active slide
+    slides.forEach((slide, index) => {
+      slide.classList.remove('active');
+      if (index === this.currentIndex) {
+        slide.classList.add('active');
+      }
+    });
+    
+    // Render indicators
+    this.renderIndicators();
+  }
+  
+  renderIndicators() {
+    this.indicatorsContainer.innerHTML = '';
+    const slides = this.slidesContainer.querySelectorAll('.carousel-slide');
+    
+    slides.forEach((_, index) => {
+      const dot = document.createElement('button');
+      dot.className = 'carousel-dot';
+      if (index === this.currentIndex) {
+        dot.classList.add('active');
+      }
+      dot.setAttribute('aria-label', `Go to slide ${index + 1}`);
+      dot.addEventListener('click', () => this.goToSlide(index));
+      this.indicatorsContainer.appendChild(dot);
+    });
+  }
+  
+  goToSlide(index) {
+    const slides = this.slidesContainer.querySelectorAll('.carousel-slide');
+    if (index >= 0 && index < slides.length) {
+      this.currentIndex = index;
+      this.render();
+      this.resetAutoplay();
+    }
+  }
+  
+  next() {
+    const slides = this.slidesContainer.querySelectorAll('.carousel-slide');
+    this.currentIndex = (this.currentIndex + 1) % slides.length;
+    this.render();
+    this.resetAutoplay();
+  }
+  
+  prev() {
+    const slides = this.slidesContainer.querySelectorAll('.carousel-slide');
+    this.currentIndex = (this.currentIndex - 1 + slides.length) % slides.length;
+    this.render();
+    this.resetAutoplay();
+  }
+  
+  setupEventListeners() {
+    this.prevBtn.addEventListener('click', () => this.prev());
+    this.nextBtn.addEventListener('click', () => this.next());
+    
+    // Pause on hover
+    this.container.addEventListener('mouseenter', () => this.pause());
+    this.container.addEventListener('mouseleave', () => this.resume());
+    
+    // Touch support for mobile
+    let touchStartX = 0;
+    this.container.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].clientX;
+      this.pause();
+    });
+    
+    this.container.addEventListener('touchend', (e) => {
+      const touchEndX = e.changedTouches[0].clientX;
+      if (touchStartX - touchEndX > 50) {
+        this.next();
+      } else if (touchEndX - touchStartX > 50) {
+        this.prev();
+      }
+      this.resume();
+    });
+  }
+  
+  startAutoplay() {
+    this.autoplayTimeout = setInterval(() => this.next(), this.config.autoplayInterval);
+  }
+  
+  pause() {
+    if (this.autoplayTimeout) {
+      clearInterval(this.autoplayTimeout);
+      this.autoplayTimeout = null;
+      this.isPaused = true;
+      this.pausedIndicator.style.opacity = '1';
+    }
+  }
+  
+  resume() {
+    if (this.isPaused) {
+      this.startAutoplay();
+      this.isPaused = false;
+      this.pausedIndicator.style.opacity = '0';
+    }
+  }
+  
+  resetAutoplay() {
+    if (this.autoplayTimeout) {
+      clearInterval(this.autoplayTimeout);
+    }
+    if (!this.isPaused) {
+      this.startAutoplay();
+    }
+  }
 }
 
-function initStars() {
-  stars = [];
-  for (let i = 0; i < 180; i++) {
+// Initialize carousel when DOM is ready
+let carousel;
+document.addEventListener('DOMContentLoaded', () => {
+  carousel = new ImageCarousel(CAROUSEL_CONFIG);
+});
+
+// ── EXISTING CODE ──
+let currentDay = getUnlockedDaysCount();
+
+function getUnlockedDaysCount() {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  START_DATE.setHours(0, 0, 0, 0);
+  const daysElapsed = Math.floor((today - START_DATE) / (1000 * 60 * 60 * 24));
+  return Math.max(0, Math.min(daysElapsed + 1, 54));
+}
+
+function initStarfield() {
+  const canvas = document.getElementById('stars-canvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  
+  const stars = [];
+  for (let i = 0; i < 150; i++) {
     stars.push({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
-      r: Math.random() * 1.5 + 0.3,
-      o: Math.random() * 0.7 + 0.1,
-      speed: Math.random() * 0.3 + 0.05,
-      twinkle: Math.random() * Math.PI * 2
+      radius: Math.random() * 1.5,
+      opacity: Math.random() * 0.5 + 0.3,
+      twinkleSpeed: Math.random() * 0.02 + 0.01
     });
   }
-}
-
-function drawStars(t) {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  stars.forEach(s => {
-    s.twinkle += s.speed * 0.02;
-    const opacity = s.o * (0.5 + 0.5 * Math.sin(s.twinkle));
-    ctx.beginPath();
-    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(179,157,219,${opacity})`;
-    ctx.fill();
+  
+  function drawStars() {
+    ctx.fillStyle = 'rgba(7, 9, 26, 1)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    stars.forEach(star => {
+      star.opacity += (Math.random() - 0.5) * star.twinkleSpeed;
+      star.opacity = Math.max(0.1, Math.min(0.8, star.opacity));
+      
+      ctx.fillStyle = `rgba(248, 244, 255, ${star.opacity})`;
+      ctx.beginPath();
+      ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+      ctx.fill();
+    });
+    
+    requestAnimationFrame(drawStars);
+  }
+  
+  drawStars();
+  window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
   });
-  requestAnimationFrame(drawStars);
 }
 
-resizeCanvas(); initStars(); drawStars();
-window.addEventListener('resize', () => { resizeCanvas(); initStars(); });
-
-// ── FLOATING HEARTS ──
-function spawnHeart() {
-  const h = document.createElement('div');
-  h.className = 'heart-float';
-  h.textContent = ['💜','🩷','✨','💫','🌸'][Math.floor(Math.random()*5)];
-  h.style.left = Math.random() * 100 + 'vw';
-  h.style.bottom = '0';
-  h.style.animationDuration = (4 + Math.random() * 4) + 's';
-  h.style.fontSize = (10 + Math.random() * 12) + 'px';
-  document.body.appendChild(h);
-  setTimeout(() => h.remove(), 8000);
-}
-setInterval(spawnHeart, 2200);
-
-// ── LOADING ──
-const loadBar = document.getElementById('load-bar');
-const loadEl = document.getElementById('loading');
-let prog = 0;
-const loadInterval = setInterval(() => {
-  prog += Math.random() * 4 + 1;
-  if (prog >= 100) { prog = 100; clearInterval(loadInterval); setTimeout(() => loadEl.classList.add('hidden'), 600); }
-  loadBar.style.width = prog + '%';
-}, 60);
-
-// ── DATE HELPERS ──
-function getToday() {
-  const now = new Date();
-  return new Date(now.getFullYear(), now.getMonth(), now.getDate());
-}
-
-function getDayIndex() {
-  const today = getToday();
-  const start = new Date(2026, 5, 1); // June 1
-  const diff = Math.floor((today - start) / 86400000);
-  return diff; // 0-based: 0 = June 1 (day 1), 53 = July 24 (day 54)
-}
-
-// ── COUNTDOWN ──
 function updateCountdown() {
   const now = new Date();
-  const target = new Date('2026-07-25T00:00:00');
-  const diff = target - now;
-
-  if (diff <= 0) {
-    document.getElementById('cd-days').textContent = '0';
-    document.getElementById('cd-hours').textContent = '0';
-    document.getElementById('cd-mins').textContent = '0';
-    document.getElementById('cd-secs').textContent = '0';
-    document.getElementById('cd-message').textContent = '🎂 It\'s your birthday, Cutoo! 💜';
+  const timeLeft = BIRTHDAY - now;
+  
+  if (timeLeft <= 0) {
+    document.getElementById('cd-days').textContent = '00';
+    document.getElementById('cd-hours').textContent = '00';
+    document.getElementById('cd-mins').textContent = '00';
+    document.getElementById('cd-secs').textContent = '00';
+    document.getElementById('cd-message').textContent = 'It\'s your birthday! 🎉💜';
     document.getElementById('finale').classList.add('visible');
     return;
   }
-
-  const days = Math.floor(diff / 86400000);
-  const hours = Math.floor((diff % 86400000) / 3600000);
-  const mins = Math.floor((diff % 3600000) / 60000);
-  const secs = Math.floor((diff % 60000) / 1000);
-
-  document.getElementById('cd-days').textContent = String(days).padStart(2,'0');
-  document.getElementById('cd-hours').textContent = String(hours).padStart(2,'0');
-  document.getElementById('cd-mins').textContent = String(mins).padStart(2,'0');
-  document.getElementById('cd-secs').textContent = String(secs).padStart(2,'0');
-
-  const msgs = [
-    'Getting closer, Cutoo 💜',
-    'Every second counts 🌸',
-    'Something beautiful is coming ✨',
-    'Almost there, my girl 🎀',
-  ];
-  document.getElementById('cd-message').textContent = msgs[Math.floor(Date.now()/5000) % msgs.length];
+  
+  const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const mins = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+  const secs = Math.floor((timeLeft % (1000 * 60)) / 1000);
+  
+  document.getElementById('cd-days').textContent = String(days).padStart(2, '0');
+  document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
+  document.getElementById('cd-mins').textContent = String(mins).padStart(2, '0');
+  document.getElementById('cd-secs').textContent = String(secs).padStart(2, '0');
 }
 
-setInterval(updateCountdown, 1000);
-updateCountdown();
-
-// ── AGE ──
 function updateAge() {
-  const bday = new Date(2001, 6, 25); // July 25 2007 — update her actual birth year if needed
   const now = new Date();
-  let years = now.getFullYear() - bday.getFullYear();
-  let months = now.getMonth() - bday.getMonth();
-  if (now.getDate() < bday.getDate()) months--;
-  if (months < 0) { years--; months += 12; }
+  let years = now.getFullYear() - BIRTHDAY_YEAR_AGO.getFullYear();
+  let months = now.getMonth() - BIRTHDAY_YEAR_AGO.getMonth();
+  
+  if (months < 0) {
+    years--;
+    months += 12;
+  }
+  
   document.getElementById('years-display').textContent = years;
   document.getElementById('months-display').textContent = months;
 }
-updateAge();
 
-// ── CALENDAR ──
-function buildCalendar() {
-  const grid = document.getElementById('calendar');
-  const todayIdx = getDayIndex(); // 0 = June 1
-
-  const dateDates = [
-    "Jun 1","Jun 2","Jun 3","Jun 4","Jun 5","Jun 6","Jun 7","Jun 8","Jun 9","Jun 10",
-    "Jun 11","Jun 12","Jun 13","Jun 14","Jun 15","Jun 16","Jun 17","Jun 18","Jun 19","Jun 20",
-    "Jun 21","Jun 22","Jun 23","Jun 24","Jun 25","Jun 26","Jun 27","Jun 28","Jun 29","Jun 30",
-    "Jul 1","Jul 2","Jul 3","Jul 4","Jul 5","Jul 6","Jul 7","Jul 8","Jul 9","Jul 10",
-    "Jul 11","Jul 12","Jul 13","Jul 14","Jul 15","Jul 16","Jul 17","Jul 18","Jul 19","Jul 20",
-    "Jul 21","Jul 22","Jul 23","Jul 24"
-  ];
-
-  for (let i = 0; i < 54; i++) {
-    const msg = MESSAGES[i];
+function initCalendar() {
+  const calendar = document.getElementById('calendar');
+  calendar.innerHTML = '';
+  
+  for (let day = 1; day <= 54; day++) {
     const card = document.createElement('div');
     card.className = 'day-card';
-
-    const isBirthday = i === 53;
-    const isUnlocked = i <= todayIdx;
-    const isToday = i === todayIdx;
-
-    if (isBirthday) card.classList.add('birthday-card');
-    else if (isToday) card.classList.add('today');
-    else if (isUnlocked) card.classList.add('unlocked');
-    else card.classList.add('locked');
-
-    card.innerHTML = `
-      <div class="day-num">${i + 1}</div>
-      <div class="day-icon">${isUnlocked ? (msg ? msg.icon : '💜') : '🔒'}</div>
-      <div class="day-date-label">${dateDates[i] || ''}</div>
-    `;
-
-    if (isUnlocked && msg) {
-      card.addEventListener('click', () => openModal(msg, i));
+    
+    const dateObj = new Date(START_DATE);
+    dateObj.setDate(dateObj.getDate() + day - 1);
+    const monthName = dateObj.toLocaleString('en-US', { month: 'short' });
+    const dayNum = dateObj.getDate();
+    const message = MESSAGES[day - 1];
+    
+    if (day < currentDay) {
+      card.classList.add('unlocked');
+    } else if (day === currentDay) {
+      card.classList.add('today');
+    } else if (day > currentDay) {
+      card.classList.add('locked');
     }
-
-    grid.appendChild(card);
+    
+    if (day === 54) {
+      card.classList.add('birthday-card');
+    }
+    
+    const icon = message.icon;
+    
+    card.innerHTML = `
+      <span class="day-num">${day}</span>
+      <span class="day-icon">${icon}</span>
+      <span class="day-date-label">${monthName} ${dayNum}</span>
+    `;
+    
+    if (day <= currentDay) {
+      card.addEventListener('click', () => openModal(day));
+      card.style.cursor = 'pointer';
+    }
+    
+    calendar.appendChild(card);
   }
 }
 
-// ── MODAL ──
-function openModal(msg, idx) {
-  document.getElementById('modal-emoji').textContent = msg.emoji || '💜';
-  document.getElementById('modal-day-label').textContent = `Day ${msg.day} of 54`;
-  document.getElementById('modal-date').textContent = msg.date;
-  document.getElementById('modal-body').textContent = msg.body;
+function openModal(day) {
+  const message = MESSAGES[day - 1];
+  document.getElementById('modal-day-label').textContent = `Day ${day}`;
+  document.getElementById('modal-date').textContent = message.date;
+  document.getElementById('modal-emoji').textContent = message.emoji;
+  document.getElementById('modal-body').textContent = message.body;
   document.getElementById('modal').classList.add('open');
 }
 
 document.getElementById('modal-close').addEventListener('click', () => {
   document.getElementById('modal').classList.remove('open');
 });
+
 document.getElementById('modal').addEventListener('click', (e) => {
-  if (e.target === document.getElementById('modal')) {
+  if (e.target.id === 'modal') {
     document.getElementById('modal').classList.remove('open');
   }
 });
 
-// ── LETTER ──
-document.getElementById('letter-text').textContent = LETTER_TEXT;
-
-// ── INIT ──
-buildCalendar();
-
-// Check if birthday
-const todayIdx = getDayIndex();
-if (todayIdx >= 54) {
-  document.getElementById('finale').classList.add('visible');
+function displayTodayLetter() {
+  const todayMessage = MESSAGES[currentDay - 1];
+  if (todayMessage) {
+    document.getElementById('letter-text').textContent = todayMessage.body;
+  }
 }
+
+function loadingSimulation() {
+  const loadBar = document.getElementById('load-bar');
+  let progress = 0;
+  
+  const interval = setInterval(() => {
+    progress += Math.random() * 30;
+    if (progress > 100) progress = 100;
+    loadBar.style.width = progress + '%';
+    
+    if (progress === 100) {
+      clearInterval(interval);
+      setTimeout(() => {
+        document.getElementById('loading').classList.add('hidden');
+      }, 300);
+    }
+  }, 200);
+}
+
+// Initialize
+window.addEventListener('load', () => {
+  initStarfield();
+  updateCountdown();
+  updateAge();
+  initCalendar();
+  displayTodayLetter();
+  loadingSimulation();
+  
+  setInterval(updateCountdown, 1000);
+});
 </script>
 </body>
 </html>
-index.html
-Displaying index.html.
