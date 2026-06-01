@@ -1,40 +1,33 @@
 name: Daily Birthday Email to Cutoo
+
 on:
-workflow_dispatch:
-schedule:
-- cron: '30 2 * * *'
+  workflow_dispatch:
+  schedule:
+    - cron: '30 2 * * *'   # Runs at 08:00 AM IST
+
 jobs:
-send-email:
-runs-on: ubuntu-latest
- 
-steps:
- 
-  - name: Checkout
- 
-    uses: actions/checkout@v4
- 
-  - name: Setup Node
- 
-    uses: actions/setup-node@v4
- 
-    with:
- 
-      node-version: 20
- 
-  - name: Install Dependencies
- 
-    run: npm install nodemailer
- 
-  - name: Run Email Script
- 
-    env:
- 
-      GMAIL_USER: ${{ secrets.GMAIL_USER }}
- 
-      GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
- 
-      TO_EMAIL: ${{ secrets.TO_EMAIL }}
- 
-      WEBSITE_URL: https://YOUR_USERNAME.github.io/apoorva-birthday/
- 
-    run: node send-email.js
+  send-email:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Initialize Project
+        run: npm init -y
+
+      - name: Install Dependencies
+        run: npm install nodemailer
+
+      - name: Run Email Script
+        env:
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          TO_EMAIL: ${{ secrets.TO_EMAIL }}
+          WEBSITE_URL: https://apoorvashrivastava792-ship-it.github.io/TEST_REPO_HBD/
+        run: node send-email.js
