@@ -1,0 +1,24 @@
+name: Daily Birthday Email to Cutoo 💜
+
+on:
+  schedule:
+    # 8:00 AM IST = 2:30 AM UTC
+    - cron: '30 2 * * *'
+  workflow_dispatch:
+
+jobs:
+  send-daily-email:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - run: npm install nodemailer
+      - name: Send daily email
+        env:
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          TO_EMAIL: apoorvashrivastava792@gmail.com
+          WEBSITE_URL: https://apoorva-bday.pages.dev
+        run: node send-email.js
