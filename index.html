@@ -608,6 +608,257 @@ box-shadow:0 0 0 0 rgba(179,157,219,0);
 }
 
 }
+
+/* ==========================
+MEMORY WALL FEATURE
+Completely Additive
+========================== */
+
+#memory-wall{
+
+position:relative;
+
+z-index:1;
+
+padding:
+
+90px 24px;
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+gap:20px;
+
+}
+
+
+.memory-wall-title{
+
+font-family:
+'Cormorant Garamond',
+serif;
+
+font-size:
+clamp(32px,7vw,50px);
+
+font-weight:300;
+
+color:
+
+var(--white);
+
+}
+
+
+.memory-wall-sub{
+
+font-size:12px;
+
+letter-spacing:.25em;
+
+text-transform:uppercase;
+
+color:
+
+rgba(255,255,255,.35);
+
+margin-bottom:40px;
+
+}
+
+
+.memory-gallery-container{
+
+width:100%;
+
+max-width:1100px;
+
+display:flex;
+
+flex-wrap:wrap;
+
+justify-content:center;
+
+gap:30px;
+
+perspective:1200px;
+
+}
+
+
+
+.memory-polaroid{
+
+width:230px;
+
+background:
+
+#fafafa;
+
+padding:
+
+14px 14px 65px;
+
+border-radius:6px;
+
+box-shadow:
+
+0 12px 35px rgba(0,0,0,.4);
+
+cursor:pointer;
+
+transition:
+
+.45s;
+
+position:relative;
+
+overflow:hidden;
+
+}
+
+
+.memory-polaroid:nth-child(odd){
+
+transform:
+
+rotate(-7deg);
+
+}
+
+
+.memory-polaroid:nth-child(even){
+
+transform:
+
+rotate(6deg);
+
+}
+
+
+.memory-polaroid:nth-child(3n){
+
+transform:
+
+rotate(-12deg);
+
+}
+
+
+.memory-polaroid img{
+
+width:100%;
+
+height:260px;
+
+object-fit:cover;
+
+border-radius:2px;
+
+display:block;
+
+}
+
+
+
+.memory-caption{
+
+position:absolute;
+
+bottom:18px;
+
+left:0;
+
+right:0;
+
+text-align:center;
+
+font-family:
+
+'Cormorant Garamond',
+serif;
+
+font-size:22px;
+
+color:#222;
+
+padding:0 10px;
+
+}
+
+
+
+.memory-polaroid:hover{
+
+transform:
+
+rotate(0deg)
+
+scale(1.12)
+
+translateY(-12px);
+
+z-index:20;
+
+box-shadow:
+
+0 25px 70px rgba(0,0,0,.6);
+
+}
+
+
+
+.memory-polaroid.active{
+
+transform:
+
+rotate(0deg)
+
+scale(1.2);
+
+z-index:30;
+
+}
+
+
+
+@media(max-width:768px){
+
+.memory-gallery-container{
+
+overflow-x:auto;
+
+flex-wrap:nowrap;
+
+justify-content:flex-start;
+
+padding-bottom:15px;
+
+scroll-snap-type:x mandatory;
+
+}
+
+.memory-polaroid{
+
+min-width:200px;
+
+scroll-snap-align:center;
+
+}
+
+.memory-polaroid:hover{
+
+transform:
+
+scale(1.05);
+
+}
+
+}
+
   </style>
 </head>
 <body>
@@ -685,6 +936,67 @@ box-shadow:0 0 0 0 rgba(179,157,219,0);
   <p style="font-family:'Cormorant Garamond',serif;font-size:20px;text-align:center;color:rgba(255,255,255,0.7);max-width:400px;line-height:1.7;">
     54 days. 54 letters. And still not enough words for what you mean to me.
   </p>
+</section>
+<!-- =========================
+MEMORY WALL SECTION
+Completely Additive
+========================= -->
+<section id="memory-wall">
+
+<h2 class="memory-wall-title">
+Our Memories 💜
+</h2>
+
+<div class="memory-wall-sub">
+✦ tiny moments, forever memories ✦
+</div>
+
+<div class="memory-gallery-container">
+
+<div class="memory-polaroid">
+<img src="path/to/memory1.jpg">
+<div class="memory-caption">
+First Memory 🌸
+</div>
+</div>
+
+<div class="memory-polaroid">
+<img src="path/to/memory2.jpg">
+<div class="memory-caption">
+Our Favorite Day 🐼
+</div>
+</div>
+
+<div class="memory-polaroid">
+<img src="path/to/memory3.jpg">
+<div class="memory-caption">
+Cute Moments 🎀
+</div>
+</div>
+
+<div class="memory-polaroid">
+<img src="path/to/memory4.jpg">
+<div class="memory-caption">
+Forever Memory ✨
+</div>
+</div>
+
+<div class="memory-polaroid">
+<img src="path/to/memory5.jpg">
+<div class="memory-caption">
+Us 💜
+</div>
+</div>
+
+<div class="memory-polaroid">
+<img src="path/to/memory6.jpg">
+<div class="memory-caption">
+Mahakal Trip 🙏
+</div>
+</div>
+
+</div>
+
 </section>
 
 <!-- LETTER -->
@@ -1669,6 +1981,41 @@ music.init();
 
 }
 );
+
+/* ======================
+MEMORY WALL MODULE
+Completely Additive
+====================== */
+
+(function(){
+
+const cards=
+
+document.querySelectorAll(
+'.memory-polaroid'
+);
+
+cards.forEach(card=>{
+
+card.addEventListener(
+'click',
+()=>{
+
+cards.forEach(
+c=>c.classList.remove(
+'active'
+)
+);
+
+card.classList.add(
+'active'
+);
+
+});
+
+});
+
+})();
 </script>
 </body>
 </html>
