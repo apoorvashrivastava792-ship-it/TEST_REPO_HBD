@@ -552,6 +552,62 @@
       .day-date-label { display: none; }
       .cd-sep { display: none; }
     }
+    /* ===========================
+   MUSIC FEATURE (ADDITIVE)
+     =========================== */
+
+.music-btn{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+
+  width:58px;
+  height:58px;
+
+  border-radius:50%;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:rgba(107,63,160,.9);
+
+  border:1px solid rgba(255,255,255,.15);
+
+  backdrop-filter:blur(10px);
+
+  font-size:24px;
+
+  cursor:pointer;
+
+  z-index:999;
+
+  transition:.25s;
+}
+
+.music-btn:hover{
+ transform:scale(1.08);
+}
+
+.music-btn.playing{
+ animation:musicPulse 2s infinite;
+}
+
+@keyframes musicPulse{
+
+0%{
+box-shadow:0 0 0 0 rgba(179,157,219,.6);
+}
+
+70%{
+box-shadow:0 0 0 20px rgba(179,157,219,0);
+}
+
+100%{
+box-shadow:0 0 0 0 rgba(179,157,219,0);
+}
+
+}
   </style>
 </head>
 <body>
@@ -664,6 +720,10 @@
     </div>
     <div class="modal-body" id="modal-body"></div>
   </div>
+</div>
+<!-- MUSIC FEATURE --> remember this 
+<div id="music-control" class="music-btn">
+  🎵
 </div>
 
 <script>
@@ -1393,7 +1453,7 @@ updateCountdown();
 
 // ── AGE ──
 function updateAge() {
-  const bday = new Date(2001, 6, 25); // July 25 2007 — update her actual birth year if needed
+  const bday = new Date(2007, 6, 25); // July 25 2007 — update her actual birth year if needed
   const now = new Date();
   let years = now.getFullYear() - bday.getFullYear();
   let months = now.getMonth() - bday.getMonth();
@@ -1475,8 +1535,140 @@ const todayIdx = getDayIndex();
 if (todayIdx >= 54) {
   document.getElementById('finale').classList.add('visible');
 }
+
+/* ===========================
+   MUSIC FEATURE MODULE
+   Completely Additive
+=========================== */
+
+class MusicManager{
+
+constructor(){
+
+this.audio=new Audio('bg.mp3');
+
+this.audio.loop=true;
+
+this.audio.volume=.45;
+
+this.button=null;
+
+this.storageKey="birthday_music";
+
+}
+
+init(){
+
+this.button=document.getElementById(
+'music-control'
+);
+
+if(!this.button)return;
+
+this.restore();
+
+this.button.addEventListener(
+'click',
+()=>this.toggle()
+);
+
+document.addEventListener(
+'click',
+()=>this.autoStart(),
+{once:true}
+);
+
+}
+
+async play(){
+
+try{
+
+await this.audio.play();
+
+this.button.classList.add(
+'playing'
+);
+
+localStorage.setItem(
+this.storageKey,
+'playing'
+);
+
+}catch(e){
+
+console.log(
+'Music blocked:',
+e
+);
+
+}
+
+}
+
+pause(){
+
+this.audio.pause();
+
+this.button.classList.remove(
+'playing'
+);
+
+localStorage.setItem(
+this.storageKey,
+'paused'
+);
+
+}
+
+toggle(){
+
+if(this.audio.paused){
+
+this.play();
+
+}else{
+
+this.pause();
+
+}
+
+}
+
+restore(){
+
+this.savedState=
+localStorage.getItem(
+this.storageKey
+);
+
+}
+
+autoStart(){
+
+if(
+this.savedState==="playing"
+){
+
+this.play();
+
+}
+
+}
+
+}
+
+window.addEventListener(
+'DOMContentLoaded',
+()=>{
+
+const music=
+new MusicManager();
+
+music.init();
+
+}
+);
 </script>
 </body>
 </html>
-index.html
-Displaying index.html.
