@@ -858,7 +858,1228 @@ scale(1.05);
 }
 
 }
+/* =========================
+CONSTELLATION SYSTEM
+========================= */
 
+#constellation-popup{
+
+position:fixed;
+
+inset:0;
+
+background:
+
+rgba(7,9,26,.92);
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+z-index:120;
+
+opacity:0;
+
+visibility:hidden;
+
+transition:.3s;
+
+backdrop-filter:blur(8px);
+
+}
+
+#constellation-popup.open{
+
+opacity:1;
+
+visibility:visible;
+
+}
+
+.constellation-card{
+
+background:
+
+linear-gradient(
+135deg,
+#0f0a2a,
+#1a0d35
+);
+
+padding:
+
+40px;
+
+border-radius:24px;
+
+max-width:420px;
+
+width:90%;
+
+position:relative;
+
+border:
+
+1px solid rgba(
+179,
+157,
+219,
+.2
+);
+
+}
+
+#constellation-title{
+
+font-family:
+
+'Cormorant Garamond',
+serif;
+
+font-size:34px;
+
+margin-bottom:20px;
+
+color:
+
+var(--lavender);
+
+text-align:center;
+
+}
+
+#constellation-text{
+
+font-family:
+
+'Cormorant Garamond',
+serif;
+
+font-size:20px;
+
+line-height:1.8;
+
+text-align:center;
+
+color:
+
+rgba(
+255,
+255,
+255,
+.85
+);
+
+}
+
+#constellation-close{
+
+position:absolute;
+
+right:14px;
+
+top:14px;
+
+background:none;
+
+border:none;
+
+color:white;
+
+font-size:20px;
+
+cursor:pointer;
+
+}
+/* constellation css ends  */
+
+/* ==========================
+TIMELINE FEATURE
+========================== */
+
+#memory-timeline{
+
+padding:100px 24px;
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+gap:20px;
+
+position:relative;
+
+z-index:1;
+
+}
+
+.timeline-title{
+
+font-family:
+'Cormorant Garamond',
+serif;
+
+font-size:
+clamp(34px,7vw,52px);
+
+font-weight:300;
+
+}
+
+.timeline-sub{
+
+font-size:12px;
+
+letter-spacing:.3em;
+
+text-transform:uppercase;
+
+color:
+rgba(255,255,255,.35);
+
+margin-bottom:50px;
+
+}
+
+.timeline-container{
+
+width:100%;
+
+max-width:1000px;
+
+display:flex;
+
+justify-content:space-between;
+
+position:relative;
+
+flex-wrap:wrap;
+
+gap:40px;
+
+}
+
+.timeline-line{
+
+position:absolute;
+
+top:20px;
+
+left:5%;
+
+right:5%;
+
+height:2px;
+
+background:
+
+linear-gradient(
+90deg,
+transparent,
+var(--lavender),
+transparent
+);
+
+opacity:.4;
+
+}
+
+.timeline-node{
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+cursor:pointer;
+
+position:relative;
+
+z-index:2;
+
+}
+
+.timeline-dot{
+
+width:24px;
+
+height:24px;
+
+border-radius:50%;
+
+background:
+
+var(--purple);
+
+box-shadow:
+
+0 0 20px rgba(
+107,
+63,
+160,
+.8
+);
+
+transition:.3s;
+
+}
+
+.timeline-node:hover .timeline-dot{
+
+transform:
+
+scale(1.4);
+
+}
+
+.timeline-label{
+
+margin-top:14px;
+
+font-size:12px;
+
+letter-spacing:.15em;
+
+text-transform:uppercase;
+
+color:
+
+rgba(
+255,
+255,
+255,
+.7
+);
+
+}
+
+
+
+#timeline-modal{
+
+position:fixed;
+
+inset:0;
+
+background:
+
+rgba(
+7,
+9,
+26,
+.92
+);
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+opacity:0;
+
+visibility:hidden;
+
+transition:.3s;
+
+z-index:120;
+
+backdrop-filter:blur(8px);
+
+}
+
+#timeline-modal.open{
+
+opacity:1;
+
+visibility:visible;
+
+}
+
+
+.timeline-card{
+
+background:
+
+linear-gradient(
+135deg,
+#0f0a2a,
+#1a0d35
+);
+
+padding:40px;
+
+border-radius:24px;
+
+max-width:450px;
+
+width:90%;
+
+position:relative;
+
+border:
+
+1px solid rgba(
+179,
+157,
+219,
+.2
+);
+
+}
+
+#timeline-modal-title{
+
+font-family:
+
+'Cormorant Garamond',
+serif;
+
+font-size:34px;
+
+color:
+
+var(--lavender);
+
+margin-bottom:20px;
+
+text-align:center;
+
+}
+
+#timeline-modal-text{
+
+font-family:
+
+'Cormorant Garamond',
+serif;
+
+font-size:20px;
+
+line-height:1.8;
+
+text-align:center;
+
+}
+
+#timeline-close{
+
+position:absolute;
+
+right:15px;
+
+top:15px;
+
+background:none;
+
+border:none;
+
+color:white;
+
+font-size:20px;
+
+cursor:pointer;
+
+}
+
+
+
+@media(max-width:768px){
+
+.timeline-container{
+
+flex-direction:column;
+
+align-items:center;
+
+}
+
+.timeline-line{
+
+display:none;
+
+}
+
+}
+/* ==========================
+SECRET ENVELOPES
+========================== */
+
+#secret-envelopes{
+
+padding:100px 24px;
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+gap:20px;
+
+position:relative;
+
+z-index:1;
+
+}
+
+.envelope-title{
+
+font-family:
+
+'Cormorant Garamond',
+serif;
+
+font-size:
+
+clamp(
+34px,
+7vw,
+54px
+);
+
+font-weight:300;
+
+}
+
+.envelope-sub{
+
+font-size:12px;
+
+letter-spacing:.25em;
+
+text-transform:uppercase;
+
+color:
+
+rgba(
+255,
+255,
+255,
+.35
+);
+
+margin-bottom:40px;
+
+}
+
+.envelope-grid{
+
+display:grid;
+
+grid-template-columns:
+
+repeat(
+auto-fit,
+minmax(180px,1fr)
+);
+
+gap:30px;
+
+width:100%;
+
+max-width:900px;
+
+}
+
+.secret-envelope{
+
+background:
+
+linear-gradient(
+135deg,
+#f6e6c9,
+#f0d8aa
+);
+
+border-radius:14px;
+
+padding:35px;
+
+text-align:center;
+
+cursor:pointer;
+
+position:relative;
+
+transition:.45s;
+
+overflow:hidden;
+
+color:#222;
+
+}
+
+.secret-envelope:hover{
+
+transform:
+
+translateY(-10px);
+
+}
+
+.secret-envelope.opened{
+
+transform:
+
+rotateX(180deg);
+
+}
+
+.envelope-cover{
+
+font-size:54px;
+
+margin-bottom:20px;
+
+transition:.5s;
+
+}
+
+.secret-envelope:hover .envelope-cover{
+
+transform:
+
+translateY(-6px);
+
+}
+
+.envelope-label{
+
+font-family:
+
+'Cormorant Garamond',
+serif;
+
+font-size:22px;
+
+}
+
+
+
+
+#envelope-modal{
+
+position:fixed;
+
+inset:0;
+
+background:
+
+rgba(
+7,
+9,
+26,
+.92
+);
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+opacity:0;
+
+visibility:hidden;
+
+transition:.3s;
+
+z-index:120;
+
+backdrop-filter:blur(8px);
+
+}
+
+#envelope-modal.open{
+
+opacity:1;
+
+visibility:visible;
+
+}
+
+.envelope-modal-card{
+
+background:
+
+linear-gradient(
+135deg,
+#0f0a2a,
+#1a0d35
+);
+
+padding:40px;
+
+border-radius:24px;
+
+max-width:450px;
+
+width:90%;
+
+position:relative;
+
+border:
+
+1px solid rgba(
+179,
+157,
+219,
+.2
+);
+
+}
+
+#envelope-modal-title{
+
+font-family:
+
+'Cormorant Garamond',
+serif;
+
+font-size:34px;
+
+color:
+
+var(--lavender);
+
+margin-bottom:20px;
+
+text-align:center;
+
+}
+
+#envelope-modal-text{
+
+font-family:
+
+'Cormorant Garamond',
+serif;
+
+font-size:20px;
+
+line-height:1.8;
+
+text-align:center;
+
+}
+
+#envelope-close{
+
+position:absolute;
+
+right:15px;
+
+top:15px;
+
+background:none;
+
+border:none;
+
+font-size:20px;
+
+color:white;
+
+cursor:pointer;
+
+}
+/* ==========================
+BALLOON FEATURE
+========================== */
+
+#balloon-section{
+
+padding:100px 24px;
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+gap:20px;
+
+position:relative;
+
+z-index:1;
+
+overflow:hidden;
+
+}
+
+.balloon-title{
+
+font-family:
+'Cormorant Garamond',
+serif;
+
+font-size:
+clamp(34px,7vw,54px);
+
+font-weight:300;
+
+}
+
+.balloon-sub{
+
+font-size:12px;
+
+letter-spacing:.25em;
+
+text-transform:uppercase;
+
+color:rgba(255,255,255,.35);
+
+margin-bottom:20px;
+
+}
+
+
+
+#balloon-container{
+
+width:100%;
+
+height:520px;
+
+position:relative;
+
+overflow:hidden;
+
+display:block;
+
+}
+
+
+
+.celebration-balloon{
+
+position:absolute;
+
+bottom:20px;
+
+font-size:56px;
+
+cursor:pointer;
+
+transition:.3s;
+
+user-select:none;
+
+z-index:5;
+
+pointer-events:auto;
+
+will-change:transform;
+
+animation:
+
+floatIdle 4s ease-in-out infinite;
+
+}
+
+
+
+.celebration-balloon:hover{
+
+transform:
+
+scale(1.15);
+
+}
+
+
+
+.celebration-balloon.fly{
+
+animation:
+
+flyUp 3s linear forwards;
+
+}
+
+
+
+@keyframes floatIdle{
+
+0%,100%{
+
+transform:
+
+translateY(0px);
+
+}
+
+50%{
+
+transform:
+
+translateY(-15px);
+
+}
+
+}
+
+
+
+@keyframes flyUp{
+
+0%{
+
+transform:
+
+translateY(0);
+
+opacity:1;
+
+}
+
+100%{
+
+transform:
+
+translateY(-700px)
+scale(1.4);
+
+opacity:0;
+
+}
+
+}
+
+
+
+#balloon-message{
+
+position:fixed;
+
+left:50%;
+
+bottom:40px;
+
+transform:translateX(-50%);
+
+opacity:0;
+
+pointer-events:none;
+
+transition:.4s;
+
+z-index:120;
+
+}
+
+
+
+#balloon-message.show{
+
+opacity:1;
+
+}
+
+
+
+.balloon-message-card{
+
+background:
+
+linear-gradient(
+135deg,
+#0f0a2a,
+#1a0d35
+);
+
+padding:
+
+18px 28px;
+
+border-radius:20px;
+
+border:
+
+1px solid rgba(
+179,
+157,
+219,
+.2
+);
+
+font-family:
+
+'Cormorant Garamond',
+serif;
+
+font-size:22px;
+
+text-align:center;
+
+backdrop-filter:blur(10px);
+
+}
+
+/* ==========================
+REVEAL + FIREWORKS
+========================== */
+
+#birthday-reveal{
+
+position:fixed;
+
+inset:0;
+
+background:
+
+#07091a;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+z-index:300;
+
+opacity:0;
+
+visibility:hidden;
+
+transition:.5s;
+
+}
+
+#birthday-reveal.active{
+
+opacity:1;
+
+visibility:visible;
+
+}
+
+#reveal-count{
+
+font-family:
+
+'Cormorant Garamond',
+serif;
+
+font-size:
+
+clamp(
+90px,
+20vw,
+180px
+);
+
+color:
+
+white;
+
+text-shadow:
+
+0 0 40px rgba(
+244,
+167,
+185,
+.8
+);
+
+animation:
+
+pulseReveal 1s infinite;
+
+}
+
+@keyframes pulseReveal{
+
+0%,100%{
+
+transform:scale(1);
+
+}
+
+50%{
+
+transform:scale(1.2);
+
+}
+
+}
+
+
+
+#fireworks-canvas{
+
+position:fixed;
+
+inset:0;
+
+pointer-events:none;
+
+z-index:250;
+
+display:none;
+
+}
+/* REVEAL AND FIREWORKS CSS ENDS */
+
+/* ==========================
+PROMISE WALL
+========================== */
+
+#promise-wall{
+
+padding:100px 24px;
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+gap:20px;
+
+}
+
+.promise-title{
+
+font-family:
+
+'Cormorant Garamond',
+serif;
+
+font-size:
+
+clamp(
+34px,
+7vw,
+54px
+);
+
+}
+
+.promise-sub{
+
+font-size:12px;
+
+letter-spacing:.25em;
+
+text-transform:uppercase;
+
+color:
+
+rgba(
+255,
+255,
+255,
+.35
+);
+
+}
+
+.promise-card{
+
+width:100%;
+
+max-width:700px;
+
+background:
+
+linear-gradient(
+135deg,
+#0f0a2a,
+#1a0d35
+);
+
+padding:30px;
+
+border-radius:24px;
+
+border:
+
+1px solid rgba(
+179,
+157,
+219,
+.2
+);
+
+}
+
+#promise-input{
+
+width:100%;
+
+height:140px;
+
+background:
+
+rgba(
+255,
+255,
+255,
+.05
+);
+
+border:none;
+
+padding:20px;
+
+color:white;
+
+border-radius:14px;
+
+resize:none;
+
+font-size:16px;
+
+}
+
+#promise-save{
+
+margin-top:20px;
+
+padding:
+
+14px 26px;
+
+border:none;
+
+background:
+
+var(--purple);
+
+color:white;
+
+border-radius:12px;
+
+cursor:pointer;
+
+}
+
+.promise-entry{
+
+margin-top:18px;
+
+padding:18px;
+
+border-radius:14px;
+
+background:
+
+rgba(
+255,
+255,
+255,
+.04
+);
+
+}
+/* PROMISE WALL ENDS */
   </style>
 </head>
 <body>
@@ -999,6 +2220,366 @@ Mahakal Trip 🙏
 
 </section>
 
+<!-- =========================
+SECRET ENVELOPES FEATURE
+========================= -->
+
+<section id="secret-envelopes">
+
+<h2 class="envelope-title">
+
+Open When... 💌
+
+</h2>
+
+<div class="envelope-sub">
+
+✦ some words are saved for special moments ✦
+
+</div>
+
+
+<div class="envelope-grid">
+
+
+<div class="secret-envelope"
+
+data-title="Open When Sad"
+
+data-message="Even on your worst days, remember this: you have been loved more deeply than you realize.">
+
+<div class="envelope-cover">
+
+💌
+
+</div>
+
+<div class="envelope-label">
+
+Open When Sad
+
+</div>
+
+</div>
+
+
+
+<div class="secret-envelope"
+
+data-title="Open When Missing Me"
+
+data-message="If you miss me, look at the stars tonight. Somewhere under the same sky, Bunny is thinking about Cutoo too.">
+
+<div class="envelope-cover">
+
+💌
+
+</div>
+
+<div class="envelope-label">
+
+Open When Missing Me
+
+</div>
+
+</div>
+
+
+
+<div class="secret-envelope"
+
+data-title="Open On Difficult Days"
+
+data-message="You survived every difficult day before this one. You'll survive this too. And I am always with you.">
+
+<div class="envelope-cover">
+
+💌
+
+</div>
+
+<div class="envelope-label">
+
+Open Difficult Days
+
+</div>
+
+</div>
+
+
+
+<div class="secret-envelope"
+
+data-title="Open After Birthday"
+
+data-message="Birthdays end. Us doesn't. This was never only about one day.">
+
+<div class="envelope-cover">
+
+💌
+
+</div>
+
+<div class="envelope-label">
+
+Open After Birthday
+
+</div>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+
+<div id="envelope-modal">
+
+<div class="envelope-modal-card">
+
+<button id="envelope-close">
+
+✕
+
+</button>
+
+<div id="envelope-modal-title">
+
+Title
+
+</div>
+
+<div id="envelope-modal-text">
+
+Message
+
+</div>
+
+</div>
+
+</div>
+<!-- envelope modal -->
+
+<!-- =========================
+BALLOON CELEBRATION FEATURE
+========================= -->
+
+<section id="balloon-section">
+
+<h2 class="balloon-title">
+
+Release Some Happiness 🎈
+
+</h2>
+
+<div class="balloon-sub">
+
+✦ tap balloons and make wishes ✦
+
+</div>
+
+<div id="balloon-container">
+
+</div>
+
+</section>
+
+
+
+<div id="balloon-message">
+
+<div class="balloon-message-card">
+
+<div id="balloon-text">
+
+message
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =========================
+MEMORY TIMELINE FEATURE
+========================= -->
+
+<section id="memory-timeline">
+
+<h2 class="timeline-title">
+
+Our Journey 💜
+
+</h2>
+
+<div class="timeline-sub">
+
+✦ little moments became forever ✦
+
+</div>
+
+<div class="timeline-container">
+
+<div class="timeline-line"></div>
+
+
+<div class="timeline-node"
+data-title="First Talk 🌸"
+data-text="The day everything quietly started."
+>
+
+<div class="timeline-dot"></div>
+
+<div class="timeline-label">
+
+First Talk
+
+</div>
+
+</div>
+
+
+
+<div class="timeline-node"
+data-title="First Call 📞"
+data-text="Hours somehow felt like minutes."
+>
+
+<div class="timeline-dot"></div>
+
+<div class="timeline-label">
+
+First Call
+
+</div>
+
+</div>
+
+
+
+<div class="timeline-node"
+data-title="Mahakal Trip 🙏"
+data-text="We were here together."
+>
+
+<div class="timeline-dot"></div>
+
+<div class="timeline-label">
+
+Mahakal
+
+</div>
+
+</div>
+
+
+
+<div class="timeline-node"
+data-title="Today 💜"
+data-text="Still choosing each other."
+>
+
+<div class="timeline-dot"></div>
+
+<div class="timeline-label">
+
+Today
+
+</div>
+
+</div>
+
+
+
+<div class="timeline-node"
+data-title="Future ✨"
+data-text="Our favorite memories haven't happened yet."
+>
+
+<div class="timeline-dot"></div>
+
+<div class="timeline-label">
+
+Future
+
+</div>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<div id="timeline-modal">
+
+<div class="timeline-card">
+
+<button id="timeline-close">
+
+✕
+
+</button>
+
+<div id="timeline-modal-title">
+
+title
+
+</div>
+
+<div id="timeline-modal-text">
+
+text
+
+</div>
+
+</div>
+
+</div>
+<!-- timeline modal -->
+ <!-- =========================
+PROMISE WALL
+========================= -->
+
+<section id="promise-wall">
+
+<h2 class="promise-title">
+
+Promise Wall 💜
+
+</h2>
+
+<div class="promise-sub">
+
+✦ leave something for tomorrow ✦
+
+</div>
+
+<div class="promise-card">
+
+<textarea
+id="promise-input"
+placeholder="Write something..."
+></textarea>
+
+<button id="promise-save">
+
+Save Memory ✨
+
+</button>
+
+<div id="promise-list">
+
+</div>
+
+</div>
+
+</section>
+<!-- PROMISE WALL ENDS  -->
 <!-- LETTER -->
 <section id="letter">
   <h2 class="section-title">A Letter from Bunny</h2>
@@ -1033,10 +2614,59 @@ Mahakal Trip 🙏
     <div class="modal-body" id="modal-body"></div>
   </div>
 </div>
-<!-- <!-- MUSIC FEATURE --> remember this  -->
+<!--  MUSIC FEATURE  remember this  -->
 <div id="music-control" class="music-btn">
   🎵
 </div>
+
+<!-- =========================
+CONSTELLATION MEMORY SYSTEM
+========================= -->
+
+<div id="constellation-popup">
+
+<div class="constellation-card">
+
+<button id="constellation-close">
+
+✕
+
+</button>
+
+<div id="constellation-title">
+
+Memory
+
+</div>
+
+<div id="constellation-text">
+
+...
+
+</div>
+
+</div>
+
+</div>
+<!-- need constellation popup check  -->
+
+<!-- =========================
+BIRTHDAY REVEAL SYSTEM
+========================= -->
+
+<div id="birthday-reveal">
+
+<div id="reveal-count">
+
+3
+
+</div>
+
+</div>
+
+
+<canvas id="fireworks-canvas"></canvas>
+<!-- birthday reveal and fireworks -->
 
 <script>
 // ── CONFIG ──
@@ -2016,6 +3646,875 @@ card.classList.add(
 });
 
 })();
+/* =========================
+CONSTELLATION MEMORY MODULE
+Completely Additive
+========================= */
+
+(function(){
+
+const memories=[
+
+{
+x:12,
+y:20,
+
+title:"First Memory 🌸",
+
+text:
+"That moment everything quietly started."
+},
+
+{
+x:28,
+y:60,
+
+title:"Mahakal 🙏",
+
+text:
+"We were here together."
+},
+
+{
+x:75,
+y:32,
+
+title:"Cute Memory 🐰",
+
+text:
+"Two ponies. That's the memory."
+},
+
+{
+x:82,
+y:70,
+
+title:"Future ✨",
+
+text:
+"This isn't even our favorite memory yet."
+}
+
+];
+
+const popup=
+
+document.getElementById(
+'constellation-popup'
+);
+
+const title=
+
+document.getElementById(
+'constellation-title'
+);
+
+const text=
+
+document.getElementById(
+'constellation-text'
+);
+
+document
+.getElementById(
+'constellation-close'
+)
+.addEventListener(
+'click',
+()=>popup.classList.remove(
+'open'
+)
+);
+
+
+function createConstellationStars(){
+
+memories.forEach(m=>{
+
+const star=
+document.createElement(
+'div'
+);
+
+star.className=
+'memory-star';
+
+star.style.left=
+m.x+"vw";
+
+star.style.top=
+m.y+"vh";
+
+star.style.position=
+'fixed';
+
+star.style.width=
+'8px';
+
+star.style.height=
+'8px';
+
+star.style.borderRadius=
+'50%';
+
+star.style.background=
+'#fff';
+
+star.style.boxShadow=
+'0 0 12px #fff';
+
+star.style.zIndex=
+'3';
+
+star.style.cursor=
+'pointer';
+
+star.style.animation=
+'starGlow 2s infinite';
+
+star.addEventListener(
+'click',
+()=>{
+
+title.innerText=
+m.title;
+
+text.innerText=
+m.text;
+
+popup.classList.add(
+'open'
+);
+
+});
+
+document.body.appendChild(
+star
+);
+
+});
+
+}
+
+const style=
+document.createElement(
+'style'
+);
+
+style.innerHTML=`
+
+.memory-star{
+
+transition:.3s;
+
+}
+
+.memory-star:hover{
+
+transform:scale(2);
+
+}
+
+@keyframes starGlow{
+
+0%,100%{
+
+opacity:.4;
+
+transform:scale(1);
+
+}
+
+50%{
+
+opacity:1;
+
+transform:scale(1.6);
+
+}
+
+}
+
+`;
+
+document.head.appendChild(
+style
+);
+
+createConstellationStars();
+
+})();
+// the script fpr complete constellation memory system is above. It's self-contained and doesn't require any changes to the existing code.
+
+/* ==========================
+TIMELINE MODULE
+========================== */
+
+(function(){
+
+const nodes=
+
+document.querySelectorAll(
+'.timeline-node'
+);
+
+const modal=
+
+document.getElementById(
+'timeline-modal'
+);
+
+const title=
+
+document.getElementById(
+'timeline-modal-title'
+);
+
+const text=
+
+document.getElementById(
+'timeline-modal-text'
+);
+
+nodes.forEach(node=>{
+
+node.addEventListener(
+'click',
+()=>{
+
+title.innerText=
+
+node.dataset.title;
+
+text.innerText=
+
+node.dataset.text;
+
+modal.classList.add(
+'open'
+);
+
+});
+
+});
+
+document
+.getElementById(
+'timeline-close'
+)
+.addEventListener(
+'click',
+()=>{
+
+modal.classList.remove(
+'open'
+);
+
+});
+
+})();
+
+/* ==========================
+ENVELOPE MODULE
+========================== */
+
+(function(){
+
+const envelopes=
+
+document.querySelectorAll(
+'.secret-envelope'
+);
+
+const modal=
+
+document.getElementById(
+'envelope-modal'
+);
+
+const title=
+
+document.getElementById(
+'envelope-modal-title'
+);
+
+const text=
+
+document.getElementById(
+'envelope-modal-text'
+);
+
+envelopes.forEach(env=>{
+
+env.addEventListener(
+'click',
+()=>{
+
+env.classList.add(
+'opened'
+);
+
+title.innerText=
+
+env.dataset.title;
+
+text.innerText=
+
+env.dataset.message;
+
+setTimeout(()=>{
+
+modal.classList.add(
+'open'
+);
+
+},350);
+
+});
+
+});
+
+
+document
+.getElementById(
+'envelope-close'
+)
+.addEventListener(
+'click',
+()=>{
+
+modal.classList.remove(
+'open'
+);
+
+});
+
+})();
+/* ==========================
+BALLOON MODULE
+========================== */
+
+(function(){
+
+const container=
+
+document.getElementById(
+'balloon-container'
+);
+
+const popup=
+
+document.getElementById(
+'balloon-message'
+);
+
+const popupText=
+
+document.getElementById(
+'balloon-text'
+);
+
+const messages=[
+
+"You're loved 💜",
+
+"Two ponies supremacy 🐰",
+
+"Make a wish ✨",
+
+"Happy soul 🌸",
+
+"Forever us ♾",
+
+"You make life softer",
+
+"Cutoo + Bunny 🐼",
+
+"Our story continues"
+
+];
+
+
+function spawnBalloon(){
+
+const balloon=
+
+document.createElement(
+'div'
+);
+
+balloon.className=
+
+'celebration-balloon';
+
+const emojis=[
+
+"🎈",
+"🎈",
+"🎈",
+"🎀",
+"💜",
+"🌸"
+
+];
+
+balloon.innerHTML=
+
+emojis[
+Math.floor(
+Math.random()*
+emojis.length
+)
+];
+
+balloon.style.left=
+
+Math.random()*90+"%";
+
+container.appendChild(
+balloon
+);
+
+balloon.addEventListener(
+'click',
+()=>{
+
+balloon.classList.add(
+'fly'
+);
+
+showMessage(
+messages[
+Math.floor(
+Math.random()*
+messages.length
+)
+]
+);
+
+setTimeout(()=>{
+
+balloon.remove();
+
+spawnBalloon();
+
+},3000);
+
+});
+
+}
+
+
+function showMessage(msg){
+
+popupText.innerText=
+
+msg;
+
+popup.classList.add(
+'show'
+);
+
+setTimeout(()=>{
+
+popup.classList.remove(
+'show'
+);
+
+},2200);
+
+}
+
+
+for(
+
+let i=0;
+
+i<14;
+
+i++
+
+){
+
+spawnBalloon();
+
+}
+
+})();
+// ballon module complete. It creates clickable balloons that show random messages when popped, and then respawn.
+/* ==========================
+BIRTHDAY REVEAL MODULE
+========================== */
+
+(function(){
+
+const reveal=
+
+document.getElementById(
+'birthday-reveal'
+);
+
+const counter=
+
+document.getElementById(
+'reveal-count'
+);
+
+const canvas=
+
+document.getElementById(
+'fireworks-canvas'
+);
+
+const ctx=
+
+canvas.getContext(
+'2d'
+);
+
+let particles=[];
+
+
+
+function resize(){
+
+canvas.width=
+
+window.innerWidth;
+
+canvas.height=
+
+window.innerHeight;
+
+}
+
+resize();
+
+window.addEventListener(
+'resize',
+resize
+);
+
+
+
+function createBurst(x,y){
+
+for(
+
+let i=0;
+
+i<80;
+
+i++
+
+){
+
+particles.push({
+
+x,
+
+y,
+
+dx:
+
+(Math.random()-.5)*8,
+
+dy:
+
+(Math.random()-.5)*8,
+
+life:100,
+
+size:
+
+Math.random()*4+1
+
+});
+
+}
+
+}
+
+
+
+function animateFireworks(){
+
+ctx.clearRect(
+0,
+0,
+canvas.width,
+canvas.height
+);
+
+particles.forEach(p=>{
+
+p.x+=p.dx;
+
+p.y+=p.dy;
+
+p.life--;
+
+ctx.beginPath();
+
+ctx.arc(
+
+p.x,
+p.y,
+
+p.size,
+
+0,
+
+Math.PI*2
+
+);
+
+ctx.fillStyle=
+
+`hsla(${
+Math.random()*360
+},100%,70%,${
+p.life/100
+})`;
+
+ctx.fill();
+
+});
+
+particles=
+
+particles.filter(
+p=>p.life>0
+);
+
+requestAnimationFrame(
+animateFireworks
+);
+
+}
+
+
+
+function startFireworks(){
+
+canvas.style.display=
+'block';
+
+animateFireworks();
+
+setInterval(()=>{
+
+createBurst(
+
+Math.random()*canvas.width,
+
+Math.random()*canvas.height*.6
+
+);
+
+},800);
+
+}
+
+
+
+async function runReveal(){
+
+reveal.classList.add(
+'active'
+);
+
+const nums=[3,2,1];
+
+for(
+
+const n of nums
+
+){
+
+counter.innerText=n;
+
+await wait(1000);
+
+}
+
+counter.innerText=
+
+"🎂";
+
+await wait(1200);
+
+reveal.classList.remove(
+'active'
+);
+
+document
+.getElementById(
+'finale'
+)
+.classList.add(
+'visible'
+);
+
+startFireworks();
+
+}
+
+
+
+function wait(ms){
+
+return new Promise(
+r=>setTimeout(
+r,
+ms
+)
+);
+
+}
+
+
+
+
+
+// FOR TESTING:
+// uncomment this
+
+// runReveal();
+
+
+
+
+
+const target=
+
+new Date(
+'2026-07-25T00:00:00'
+);
+
+const now=
+
+new Date();
+
+if(
+
+now>=target
+
+){
+
+runReveal();
+
+}
+
+})();
+// This module handles the final birthday reveal with a countdown and fireworks. It checks if the current date is past the target birthday date, and if so, it runs the reveal sequence. The fireworks are created using canvas particles that burst randomly across the screen.
+
+/* ==========================
+PROMISE WALL MODULE
+========================== */
+
+(function(){
+
+const input=
+
+document.getElementById(
+'promise-input'
+);
+
+const btn=
+
+document.getElementById(
+'promise-save'
+);
+
+const list=
+
+document.getElementById(
+'promise-list'
+);
+
+if(!input)return;
+
+function render(){
+
+list.innerHTML="";
+
+const data=
+
+JSON.parse(
+
+localStorage.getItem(
+'promiseWall'
+)||"[]"
+
+);
+
+data.forEach(text=>{
+
+const div=
+
+document.createElement(
+'div'
+);
+
+div.className=
+'promise-entry';
+
+div.innerText=
+text;
+
+list.appendChild(
+div
+);
+
+});
+
+}
+
+btn.addEventListener(
+'click',
+()=>{
+
+if(
+!input.value.trim()
+)return;
+
+const data=
+
+JSON.parse(
+
+localStorage.getItem(
+'promiseWall'
+)||"[]"
+
+);
+
+data.unshift(
+input.value
+);
+
+localStorage.setItem(
+
+'promiseWall',
+
+JSON.stringify(
+data
+)
+
+);
+
+input.value="";
+
+render();
+
+});
+
+render();
+
+})();
 </script>
+
+
+
 </body>
 </html>
