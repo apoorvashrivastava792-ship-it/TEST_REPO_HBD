@@ -15,8 +15,8 @@ const msg = {
 
 async function sendEmail() {
   await transporter.sendMail({
-    from: `Bunny 🐰 <${process.env.GMAIL_USER}>`, // ✅ fixed
-    to: process.env.TO_EMAILS,
+    from: `Bunny 🐰 ❤️<${process.env.GMAIL_USER}>`, // ✅ fixed
+    to: process.env.TO_EMAIL,
     subject: msg.subject,
     text: msg.body,
     html: `
