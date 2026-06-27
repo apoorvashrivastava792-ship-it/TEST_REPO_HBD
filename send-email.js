@@ -10,7 +10,7 @@ const transporter = nodemailer.createTransport({
 
 const msg = {
   subject: "Happy Birthday 🎂",
-  body: "Wishing you a wonderful birthday ❤️,please check once if u get time",
+  body: "Wishing you a wonderful birthday ❤️,please check once if u get time,love form bunny",
 };
 
 async function sendEmail() {
