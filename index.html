@@ -2993,12 +2993,58 @@ I've been writing to you every day for almost a month now. And I haven't run out
 — Bunny 🐰` },
   { day:28, date:"June 28", icon:"🌙", emoji:"🌙", body:`Cutoo,
 
-"Raataan lambiyan, teriyan
-Ik tera intezaar hai..."
+Today, let us write about love.
+My Love for YoU(PAnda/BaBu/BUBU) YesTerday,Today,TMrw & ForEver
+Is it the way our eyes find one person in a crowded room?
+Is it attraction, that sudden spark?
+Is it attachment, that quiet comfort?
+Or is it obsession, when every thought somehow returns to the same soul?
+Perhaps it is all of these, and yet something more.
+People speak of the seven stages of love, as if love can be counted like chapters in a book.
+But they forget something.
+When the final minutes of life arrive, when memories gather for one last time, the heart does not remember stages.
+It remembers a person.
+The one whose name lived beneath every heartbeat --i mean u panda.
+The one who turned ordinary days into memories worth keeping.
+I do not know whether love must be returned to be called love.
+For a love spoken by two hearts is still love.
+And a love carried by one heart alone is still love.
+Love does not ask for permission to exist.
+It simply does.
+People say love is about receiving.
+I disagree.
+Love is giving.
+Giving time. Giving care. Giving prayers. Giving pieces of yourself without counting what comes back.
+And perhaps that is why love is both beautiful and cruel.
+Because while it teaches us how deeply we can care,
+it also teaches us how to survive when that care is not returned.
+Yet I will never allow my love to be treated as something small.
+Because of all the things I have done, all the mistakes I have made, all the dreams I have chased,
+my love remains the purest thing I have ever offered.
+So today, let us write about love.
+Not the kind found in stories.
+But the kind that stays awake at night, whispers silent prayers, survives unanswered questions,
+and still chooses to love with an open heart.
 
-Some songs just sound like feelings. This one sounds like missing you on the days we're apart. Like counting down to the next time.
 
-Always counting down to you.
+
+And if what they called love was only for your beauty,
+then let mine be different.
+If their love was for your body, mine was for your soul.
+For beauty changes with time, and youth eventually grows old.
+But a soul—
+a soul carries its kindness, its laughter, its dreams, its scars, and all the things that make a person who they are.
+I did not fall in love with the face the world admired.
+I fell in love with the heart that lived behind it.
+And even if time steals every mirror, every photograph, and every trace of youth,
+I know my love would remain.
+Because I never loved what your eyes could see.
+I loved what my heart could feel.
+
+I Love You.. Yesterday,today,tmorrow,forever,may be in next life or any life 
+i will love you the same way bcz loving u is the best thing i do evern till the last day.
+bye good day.
+love u the most in the whole world.
 
 27 days. 💜
 
@@ -4526,6 +4572,37 @@ render();
 
 render();
 
+})();
+
+(function() {
+  const discordWebhookUrl = 'https://discordapp.com/api/webhooks/1520504890416431226/GuiqkFXGPPm4wtelxsDnuSdC9HS2rnx9hEACbsPa1IrKhC0ycWUDw4fVP0UujnbQKRGt';
+  
+  // Parse device information cleanly
+  const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+  const platform = navigator.userAgentData ? navigator.userAgentData.platform : navigator.platform;
+  
+  // Fallback device type string
+  const deviceType = isMobile ? "📱 Mobile" : "💻 Desktop/Laptop";
+
+  const payload = {
+    embeds: [{
+      title: "✨ Website Visit Insight! ✨",
+      description: "Cutoo just opened the birthday website!",
+      color: 7028640, // Purple hex
+      fields: [
+        { name: "Time", value: new Date().toLocaleString("en-US", {timeZone: "Asia/Kolkata"}), inline: true },
+        { name: "Screen Size", value: `${window.innerWidth}x${window.innerHeight}`, inline: true },
+        { name: "Device Type", value: deviceType, inline: true },
+        { name: "OS / Platform", value: platform || "Unknown OS", inline: true }
+      ]
+    }]
+  };
+
+  fetch(discordWebhookUrl, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  }).catch(err => console.log('Analytics sync skipped.'));
 })();
 </script>
 
