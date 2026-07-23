@@ -174,20 +174,41 @@ celebrates you.`,
 };
 
 async function sendEmail() {
-  await transporter.sendMail({
-    from: `Bunny 🐰 ❤️<${process.env.GMAIL_USER}>`, // ✅ fixed
-    to: process.env.TO_EMAIL,
-    subject: msg.subject,
-    text: msg.body,
-    html: `
-      <h2>${msg.subject}</h2>
-      <p>${msg.body}</p>
-      <a href="${process.env.WEBSITE_URL}">Click Here 🎁</a>
-    `,
-  });
+  try {
+    await transporter.sendMail({
+      from: `"Bunny 🐰❤️" <${process.env.GMAIL_USER}>`,
+      to: process.env.TO_EMAIL,
+      subject: msg.subject,
+      text: msg.body,
+      html: `
+        <div style="font-family: Georgia, serif; line-height: 1.8; color: #333; max-width: 700px; margin: auto;">
+          <h2 style="text-align:center;">${msg.subject}</h2>
 
-  console.log("✅ Email sent successfully");
+          <div style="white-space: pre-wrap; font-size:16px;">
+${msg.body}
+          </div>
+
+          <br>
+
+          <div style="text-align:center;">
+            <a href="${process.env.WEBSITE_URL}"
+               style="background:#ff4d6d;color:white;padding:12px 24px;text-decoration:none;border-radius:8px;font-weight:bold;">
+              🎁 Open Your Birthday Surprise
+            </a>
+          </div>
+
+          <br>
+          <p style="text-align:center;color:#888;">
+            Made with ❤️ by Bunny
+          </p>
+        </div>
+      `,
+    });
+
+    console.log("✅ Email sent successfully!");
+  } catch (error) {
+    console.error("❌ Error sending email:", error);
+  }
 }
 
 sendEmail();
-
