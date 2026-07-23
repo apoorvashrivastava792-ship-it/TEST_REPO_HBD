@@ -18,7 +18,7 @@ from: Bunny 🐰 ❤️<${process.env.GMAIL_USER}>, // ✅ fixed
 to: process.env.TO_EMAIL,
 subject: msg.subject,
 text: msg.body,
-html: <h2>${msg.subject}</h2> <p>${msg.body}</p> <a href="${process.env.WEBSITE_URL}">Click Here 🎁</a> ,
+html: <h2>${msg.subject}</h2> <p>${msg.body}</p> <a href="${process.env.WEBSITE_URL}"> Click Here 🎁</a> ,
 });
 
 console.log("✅ Email sent successfully");
