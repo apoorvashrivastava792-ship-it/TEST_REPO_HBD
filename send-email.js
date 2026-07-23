@@ -10,32 +10,23 @@ const transporter = nodemailer.createTransport({
 
 const msg = {
   subject: "Happy Birthday 🎂",
-  body: "Wishing you a wonderful birthday ❤️, please check once if you get time. Love from Bunny, who will always be there.",
+  body: "Wishing you a wonderful birthday ❤️ and all the love available in the world ",
 };
 
 async function sendEmail() {
-  try {
-    await transporter.sendMail({
-      from: `Bunny 🐰 ❤️ <${process.env.GMAIL_USER}>`,
-      to: process.env.TO_EMAIL,
-      subject: msg.subject,
-      text: msg.body,
-      html: `
-        <h2>${msg.subject}</h2>
-        <p>${msg.body}</p>
-        <p>
-          ${process.env.WEBSITE_URL}
-            Click Here 🎁
-          </a>
-        </p>
-      `,
-    });
+  await transporter.sendMail({
+    from: `Bunny 🐰 <${process.env.GMAIL_USER}>`, // ✅ fixed
+    to: process.env.TO_EMAIL,
+    subject: msg.subject,
+    text: msg.body,
+    html: `
+      <h2>${msg.subject}</h2>
+      <p>${msg.body}</p>
+      ${process.env.WEBSITE_URL}Click Here 🎁</a>
+    `,
+  });
 
-    console.log("✅ Email sent successfully");
-  } catch (error) {
-    console.error("❌ Failed to send email:", error);
-    process.exit(1);
-  }
+  console.log("✅ Email sent successfully");
 }
 
 sendEmail();
